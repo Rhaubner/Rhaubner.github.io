@@ -1,26 +1,183 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 	<head>
 		<meta charset="utf-8" />
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-		/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-		<title>reveal.js</title>
+		<title>Quantencomputer & Cybersecurity</title>
 
 		<link rel="stylesheet" href="dist/reset.css" />
 		<link rel="stylesheet" href="dist/reveal.css" />
 		<link rel="stylesheet" href="dist/theme/black.css" />
-
-		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="dist/plugin/highlight/monokai.css" />
+
+		<style>
+			.reveal h1, .reveal h2, .reveal h3 {
+				text-transform: none;
+			}
+			.reveal section {
+				font-size: 28px;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+
+				<section>
+					<h1>Quantencomputer</h1>
+					<h3>Risiken für Verschlüsselung & Cybersecurity</h3>
+					<p>Ein Überblick über Technologie, Bedrohungen und Zukunft</p>
+				</section>
+
+				<section>
+					<h2>Agenda</h2>
+					<ul>
+						<li>Was sind Quantencomputer?</li>
+						<li>Wie funktionieren sie?</li>
+						<li>Aktuelle Kryptographie</li>
+						<li>Bedrohungen durch Quantenalgorithmen</li>
+						<li>Risiken für Cybersecurity</li>
+						<li>Post-Quantum-Kryptographie</li>
+						<li>Fazit</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Was sind Quantencomputer?</h2>
+					<ul>
+						<li>Rechner basierend auf Quantenmechanik</li>
+						<li>Nutzen Qubits statt klassischer Bits</li>
+						<li>Können mehrere Zustände gleichzeitig darstellen</li>
+						<li>Exponentielle Rechenleistung für bestimmte Probleme</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Klassische vs. Quantencomputer</h2>
+					<ul>
+						<li>Bit: 0 oder 1</li>
+						<li>Qubit: 0 und 1 gleichzeitig (Superposition)</li>
+						<li>Quantenverschränkung ermöglicht komplexe Berechnungen</li>
+						<li>Parallelität statt sequenzieller Verarbeitung</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Wichtige Eigenschaften</h2>
+					<ul>
+						<li>Superposition</li>
+						<li>Verschränkung</li>
+						<li>Interferenz</li>
+						<li>Hohe Fehleranfälligkeit</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Aktuelle Kryptographie</h2>
+					<ul>
+						<li>RSA (Public-Key-Kryptographie)</li>
+						<li>ECC (Elliptic Curve Cryptography)</li>
+						<li>AES (symmetrische Verschlüsselung)</li>
+						<li>Sicherheit basiert auf mathematischer Komplexität</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Warum ist Kryptographie sicher?</h2>
+					<ul>
+						<li>Faktorisierung großer Zahlen ist schwierig</li>
+						<li>Diskrete Logarithmen sind schwer berechenbar</li>
+						<li>Benötigt extrem viel Zeit mit klassischen Computern</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Quantenalgorithmen</h2>
+					<ul>
+						<li>Shor-Algorithmus: bricht RSA & ECC</li>
+						<li>Grover-Algorithmus: beschleunigt Brute-Force</li>
+						<li>Exponentielle bzw. quadratische Beschleunigung</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Bedrohung für Verschlüsselung</h2>
+					<ul>
+						<li>RSA könnte vollständig gebrochen werden</li>
+						<li>ECC besonders stark betroffen</li>
+						<li>Langfristige Daten gefährdet („Harvest now, decrypt later")</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Risiken für Cybersecurity</h2>
+					<ul>
+						<li>Angriffe auf HTTPS-Verbindungen</li>
+						<li>Gefährdung von digitalen Signaturen</li>
+						<li>Manipulation von Software-Updates</li>
+						<li>Kritische Infrastruktur bedroht</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Betroffene Bereiche</h2>
+					<ul>
+						<li>Banking & Finanzsysteme</li>
+						<li>Regierungen & Militär</li>
+						<li>Cloud-Dienste</li>
+						<li>IoT-Geräte</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Post-Quantum-Kryptographie</h2>
+					<ul>
+						<li>Neue Algorithmen resistent gegen Quantenangriffe</li>
+						<li>Basieren auf Gittern, Hashfunktionen, Codes</li>
+						<li>Standardisierung läuft (z.B. NIST)</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Beispiele für PQC</h2>
+					<ul>
+						<li>CRYSTALS-Kyber</li>
+						<li>CRYSTALS-Dilithium</li>
+						<li>SPHINCS+</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Herausforderungen</h2>
+					<ul>
+						<li>Größere Schlüsselgrößen</li>
+						<li>Performance-Probleme</li>
+						<li>Migration bestehender Systeme</li>
+						<li>Ungewissheit über zukünftige Angriffe</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Was sollten Unternehmen tun?</h2>
+					<ul>
+						<li>Krypto-Agilität einführen</li>
+						<li>Sicherheitsarchitektur überprüfen</li>
+						<li>Langfristige Daten schützen</li>
+						<li>Auf PQC vorbereiten</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Fazit</h2>
+					<ul>
+						<li>Quantencomputer sind eine reale zukünftige Bedrohung</li>
+						<li>Aktuelle Kryptographie ist nicht zukunftssicher</li>
+						<li>Post-Quantum-Kryptographie ist entscheidend</li>
+						<li>Frühe Vorbereitung ist kritisch</li>
+					</ul>
+				</section>
+
 			</div>
 		</div>
 
@@ -29,14 +186,10 @@
 		<script src="dist/plugin/markdown.js"></script>
 		<script src="dist/plugin/highlight.js"></script>
 		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
 			Reveal.initialize({
 				hash: true,
-
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+				transition: 'fade',
+				plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
 			});
 		</script>
 	</body>
