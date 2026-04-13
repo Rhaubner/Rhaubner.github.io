@@ -1,196 +1,584 @@
 <!DOCTYPE html>
 <html lang="de">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quantencomputer – Die nächste Revolution</title>
 
-		<title>Quantencomputer & Cybersecurity</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/theme/black.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
 
-		<link rel="stylesheet" href="dist/reset.css" />
-		<link rel="stylesheet" href="dist/reveal.css" />
-		<link rel="stylesheet" href="dist/theme/black.css" />
-		<link rel="stylesheet" href="dist/plugin/highlight/monokai.css" />
+  <style>
+    :root {
+      --q-blue:   #00d4ff;
+      --q-cyan:   #00ffcc;
+      --q-purple: #8b5cf6;
+      --q-dark:   #050a12;
+      --q-card:   rgba(0,212,255,0.06);
+      --q-border: rgba(0,212,255,0.25);
+    }
 
-		<style>
-			.reveal h1, .reveal h2, .reveal h3 {
-				text-transform: none;
-			}
-			.reveal section {
-				font-size: 28px;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
+    /* ── Base ── */
+    .reveal-viewport { background: var(--q-dark); }
+    .reveal .slides { font-family: 'DM Sans', sans-serif; }
 
-				<section>
-					<h1>Quantencomputer</h1>
-					<h3>Risiken für Verschlüsselung & Cybersecurity</h3>
-					<p>Ein Überblick über Technologie, Bedrohungen und Zukunft</p>
-				</section>
+    /* animated grid bg */
+    .reveal-viewport::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(0,212,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,212,255,.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridMove 20s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+    @keyframes gridMove {
+      0%   { background-position: 0 0; }
+      100% { background-position: 60px 60px; }
+    }
 
-				<section>
-					<h2>Agenda</h2>
-					<ul>
-						<li>Was sind Quantencomputer?</li>
-						<li>Wie funktionieren sie?</li>
-						<li>Aktuelle Kryptographie</li>
-						<li>Bedrohungen durch Quantenalgorithmen</li>
-						<li>Risiken für Cybersecurity</li>
-						<li>Post-Quantum-Kryptographie</li>
-						<li>Fazit</li>
-					</ul>
-				</section>
+    /* ── Typography ── */
+    .reveal h1, .reveal h2, .reveal h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .reveal h1 { font-size: 3.8em; line-height: 0.9; color: #fff; }
+    .reveal h2 { font-size: 2.2em; color: var(--q-blue); margin-bottom: 0.5em; }
+    .reveal h3 { font-size: 1.4em; color: var(--q-cyan); margin-bottom: 0.3em; }
+    .reveal p, .reveal li { font-size: 0.82em; line-height: 1.65; color: rgba(255,255,255,0.82); }
+    .reveal strong { color: var(--q-blue); font-weight: 600; }
 
-				<section>
-					<h2>Was sind Quantencomputer?</h2>
-					<ul>
-						<li>Rechner basierend auf Quantenmechanik</li>
-						<li>Nutzen Qubits statt klassischer Bits</li>
-						<li>Können mehrere Zustände gleichzeitig darstellen</li>
-						<li>Exponentielle Rechenleistung für bestimmte Probleme</li>
-					</ul>
-				</section>
+    /* number labels */
+    .slide-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55em;
+      color: var(--q-purple);
+      letter-spacing: 0.15em;
+      display: block;
+      margin-bottom: 0.3em;
+    }
 
-				<section>
-					<h2>Klassische vs. Quantencomputer</h2>
-					<ul>
-						<li>Bit: 0 oder 1</li>
-						<li>Qubit: 0 und 1 gleichzeitig (Superposition)</li>
-						<li>Quantenverschränkung ermöglicht komplexe Berechnungen</li>
-						<li>Parallelität statt sequenzieller Verarbeitung</li>
-					</ul>
-				</section>
+    /* ── Cards ── */
+    .q-card {
+      background: var(--q-card);
+      border: 1px solid var(--q-border);
+      border-radius: 10px;
+      padding: 0.9em 1.2em;
+      margin: 0.4em 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .q-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: linear-gradient(180deg, var(--q-blue), var(--q-purple));
+    }
 
-				<section>
-					<h2>Wichtige Eigenschaften</h2>
-					<ul>
-						<li>Superposition</li>
-						<li>Verschränkung</li>
-						<li>Interferenz</li>
-						<li>Hohe Fehleranfälligkeit</li>
-					</ul>
-				</section>
+    /* ── Grid layouts ── */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8em; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.7em; }
 
-				<section>
-					<h2>Aktuelle Kryptographie</h2>
-					<ul>
-						<li>RSA (Public-Key-Kryptographie)</li>
-						<li>ECC (Elliptic Curve Cryptography)</li>
-						<li>AES (symmetrische Verschlüsselung)</li>
-						<li>Sicherheit basiert auf mathematischer Komplexität</li>
-					</ul>
-				</section>
+    /* ── Icon chips ── */
+    .chip {
+      display: inline-flex; align-items: center; gap: 0.4em;
+      background: rgba(139,92,246,0.15);
+      border: 1px solid rgba(139,92,246,0.4);
+      border-radius: 999px;
+      padding: 0.2em 0.75em;
+      font-size: 0.7em;
+      color: #c4b5fd;
+      margin: 0.2em;
+      font-family: 'Space Mono', monospace;
+    }
 
-				<section>
-					<h2>Warum ist Kryptographie sicher?</h2>
-					<ul>
-						<li>Faktorisierung großer Zahlen ist schwierig</li>
-						<li>Diskrete Logarithmen sind schwer berechenbar</li>
-						<li>Benötigt extrem viel Zeit mit klassischen Computern</li>
-					</ul>
-				</section>
+    /* ── Highlight pill ── */
+    .pill {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--q-blue), var(--q-purple));
+      color: #fff;
+      border-radius: 4px;
+      padding: 0.1em 0.5em;
+      font-size: 0.85em;
+      font-weight: 600;
+    }
 
-				<section>
-					<h2>Quantenalgorithmen</h2>
-					<ul>
-						<li>Shor-Algorithmus: bricht RSA & ECC</li>
-						<li>Grover-Algorithmus: beschleunigt Brute-Force</li>
-						<li>Exponentielle bzw. quadratische Beschleunigung</li>
-					</ul>
-				</section>
+    /* ── Big stat ── */
+    .stat-big {
+      font-family: 'Bebas Neue', monospace;
+      font-size: 3em;
+      color: var(--q-cyan);
+      line-height: 1;
+    }
 
-				<section>
-					<h2>Bedrohung für Verschlüsselung</h2>
-					<ul>
-						<li>RSA könnte vollständig gebrochen werden</li>
-						<li>ECC besonders stark betroffen</li>
-						<li>Langfristige Daten gefährdet („Harvest now, decrypt later")</li>
-					</ul>
-				</section>
+    /* ── Warning / risk card ── */
+    .q-card.danger {
+      border-color: rgba(239,68,68,0.35);
+      background: rgba(239,68,68,0.06);
+    }
+    .q-card.danger::before {
+      background: linear-gradient(180deg, #ef4444, #f97316);
+    }
+    .q-card.danger h3 { color: #f87171; }
 
-				<section>
-					<h2>Risiken für Cybersecurity</h2>
-					<ul>
-						<li>Angriffe auf HTTPS-Verbindungen</li>
-						<li>Gefährdung von digitalen Signaturen</li>
-						<li>Manipulation von Software-Updates</li>
-						<li>Kritische Infrastruktur bedroht</li>
-					</ul>
-				</section>
+    /* ── Cover slide ── */
+    .cover-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65em;
+      color: var(--q-purple);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .cover-subtitle {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9em;
+      color: rgba(255,255,255,0.55);
+      margin-top: 0.5em;
+    }
+    .cover-glow {
+      position: absolute;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(0,212,255,0.15) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -55%);
+      pointer-events: none;
+    }
+    .cover-glow2 {
+      position: absolute;
+      width: 350px; height: 350px;
+      background: radial-gradient(circle, rgba(139,92,246,0.18) 0%, transparent 70%);
+      bottom: 5%; right: 5%;
+      pointer-events: none;
+    }
 
-				<section>
-					<h2>Betroffene Bereiche</h2>
-					<ul>
-						<li>Banking & Finanzsysteme</li>
-						<li>Regierungen & Militär</li>
-						<li>Cloud-Dienste</li>
-						<li>IoT-Geräte</li>
-					</ul>
-				</section>
+    /* ── Qubit visual ── */
+    .qubit-ring {
+      width: 90px; height: 90px;
+      border-radius: 50%;
+      border: 2px solid var(--q-blue);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+      margin: 0 auto 0.5em;
+      box-shadow: 0 0 20px rgba(0,212,255,0.3);
+    }
+    .qubit-ring::before {
+      content: '';
+      position: absolute;
+      width: 70%; height: 70%;
+      border-radius: 50%;
+      border: 1px dashed rgba(0,212,255,0.4);
+      animation: spin 4s linear infinite;
+    }
+    .qubit-ring .qubit-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.4em;
+      font-weight: 700;
+      color: var(--q-cyan);
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-				<section>
-					<h2>Post-Quantum-Kryptographie</h2>
-					<ul>
-						<li>Neue Algorithmen resistent gegen Quantenangriffe</li>
-						<li>Basieren auf Gittern, Hashfunktionen, Codes</li>
-						<li>Standardisierung läuft (z.B. NIST)</li>
-					</ul>
-				</section>
+    /* ── Progress bar ── */
+    .progress-bar {
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(255,255,255,0.1);
+      margin: 0.3em 0 0.7em;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: linear-gradient(90deg, var(--q-blue), var(--q-purple));
+    }
 
-				<section>
-					<h2>Beispiele für PQC</h2>
-					<ul>
-						<li>CRYSTALS-Kyber</li>
-						<li>CRYSTALS-Dilithium</li>
-						<li>SPHINCS+</li>
-					</ul>
-				</section>
+    /* ── Timeline ── */
+    .timeline { position: relative; padding-left: 1.8em; }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 0.4em; top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, var(--q-blue), var(--q-purple), transparent);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 0.7em;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -1.55em; top: 0.45em;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--q-cyan);
+      box-shadow: 0 0 8px var(--q-cyan);
+    }
 
-				<section>
-					<h2>Herausforderungen</h2>
-					<ul>
-						<li>Größere Schlüsselgrößen</li>
-						<li>Performance-Probleme</li>
-						<li>Migration bestehender Systeme</li>
-						<li>Ungewissheit über zukünftige Angriffe</li>
-					</ul>
-				</section>
+    /* ── Reveal overrides ── */
+    .reveal .slide-number { color: rgba(0,212,255,0.4); }
+    .reveal .controls { color: var(--q-blue); }
+    .reveal .progress { background: rgba(0,212,255,0.15); height: 3px; }
+    .reveal .progress span { background: var(--q-blue); }
 
-				<section>
-					<h2>Was sollten Unternehmen tun?</h2>
-					<ul>
-						<li>Krypto-Agilität einführen</li>
-						<li>Sicherheitsarchitektur überprüfen</li>
-						<li>Langfristige Daten schützen</li>
-						<li>Auf PQC vorbereiten</li>
-					</ul>
-				</section>
+    /* no bullets */
+    .reveal ul { list-style: none; padding: 0; margin: 0; }
+    .reveal ul li { padding-left: 1.2em; position: relative; margin-bottom: 0.35em; }
+    .reveal ul li::before {
+      content: '▸';
+      position: absolute; left: 0;
+      color: var(--q-blue);
+      font-size: 0.8em;
+      top: 0.1em;
+    }
 
-				<section>
-					<h2>Fazit</h2>
-					<ul>
-						<li>Quantencomputer sind eine reale zukünftige Bedrohung</li>
-						<li>Aktuelle Kryptographie ist nicht zukunftssicher</li>
-						<li>Post-Quantum-Kryptographie ist entscheidend</li>
-						<li>Frühe Vorbereitung ist kritisch</li>
-					</ul>
-				</section>
+    /* section header slide */
+    .section-header {
+      text-align: center;
+      padding: 1em;
+    }
+    .section-header .big-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 7em;
+      color: rgba(0,212,255,0.08);
+      line-height: 1;
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      text-align: center;
+      pointer-events: none;
+      letter-spacing: 0.05em;
+    }
 
-			</div>
-		</div>
+    /* fazit */
+    .fazit-box {
+      background: linear-gradient(135deg, rgba(0,212,255,0.08), rgba(139,92,246,0.08));
+      border: 1px solid rgba(0,212,255,0.2);
+      border-radius: 12px;
+      padding: 1.2em 1.5em;
+      text-align: center;
+      font-size: 0.9em;
+      color: rgba(255,255,255,0.88);
+      line-height: 1.7;
+    }
+  </style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
 
-		<script src="dist/reveal.js"></script>
-		<script src="dist/plugin/notes.js"></script>
-		<script src="dist/plugin/markdown.js"></script>
-		<script src="dist/plugin/highlight.js"></script>
-		<script>
-			Reveal.initialize({
-				hash: true,
-				transition: 'fade',
-				plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
-			});
-		</script>
-	</body>
+  <!-- ═══════════════════════════════════════════
+       COVER
+  ════════════════════════════════════════════ -->
+  <section data-transition="zoom">
+    <div class="cover-glow"></div>
+    <div class="cover-glow2"></div>
+    <p class="cover-label">Technologie der Zukunft</p>
+    <h1>Quanten&shy;computer</h1>
+    <p class="cover-subtitle">Wie quantenmechanische Effekte die Informatik<br>neu definieren — Chancen, Risiken & Stand der Technik</p>
+    <br>
+    <div style="display:flex; justify-content:center; gap:0.5em; flex-wrap:wrap; margin-top:1em;">
+      <span class="chip">⚛ Superposition</span>
+      <span class="chip">🔗 Verschränkung</span>
+      <span class="chip">⚡ Quantengatter</span>
+      <span class="chip">🔐 Post-Quanten-Krypto</span>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       1. WAS IST EIN QUANTENCOMPUTER?
+  ════════════════════════════════════════════ -->
+  <section>
+    <section data-transition="slide">
+      <span class="slide-num">01 — Grundlagen</span>
+      <h2>Was ist ein Quantencomputer?</h2>
+      <div class="grid-2" style="align-items:start;">
+        <div>
+          <div class="q-card">
+            <h3>Klassisch vs. Quanten</h3>
+            <p>Klassische Computer arbeiten mit <strong>Bits</strong>: 0 oder 1. Quantencomputer verwenden <strong>Qubits</strong>, die durch Quantenmechanik völlig neue Möglichkeiten erschließen.</p>
+          </div>
+          <div class="q-card" style="margin-top:0.6em;">
+            <h3>Einsatzgebiete</h3>
+            <ul>
+              <li>Simulationen physikalischer Systeme</li>
+              <li>Materialforschung &amp; Chemie</li>
+              <li>Optimierungsprobleme</li>
+              <li>Mustererkennung &amp; KI</li>
+            </ul>
+          </div>
+        </div>
+        <div style="text-align:center;">
+          <div class="qubit-ring"><span class="qubit-label">|ψ⟩</span></div>
+          <div class="q-card" style="margin-top:0.6em; text-align:left;">
+            <h3>Superposition</h3>
+            <p>Ein Qubit ist gleichzeitig <span class="pill">0</span> und <span class="pill">1</span> — erst bei Messung kollabiert es in einen Zustand.</p>
+          </div>
+          <div class="q-card" style="margin-top:0.5em; text-align:left;">
+            <h3>Verschränkung</h3>
+            <p>Qubits können <strong>korreliert</strong> sein — der Zustand eines beeinflusst sofort den anderen, egal wie weit sie entfernt sind.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       2. WARUM SO LEISTUNGSFÄHIG?
+  ════════════════════════════════════════════ -->
+  <section>
+    <section data-transition="slide">
+      <span class="slide-num">02 — Leistung</span>
+      <h2>Warum sind sie so mächtig?</h2>
+      <div class="q-card" style="text-align:center; margin-bottom:0.8em;">
+        <p style="margin:0; font-size:0.78em; color:rgba(255,255,255,0.6);">Probleme, für die klassische Supercomputer bräuchten …</p>
+        <div class="stat-big">10.000 Jahre</div>
+        <p style="margin:0; font-size:0.78em;">… löst ein Quantencomputer in <strong>Minuten</strong>.</p>
+      </div>
+      <div class="grid-3">
+        <div class="q-card" style="text-align:center;">
+          <div style="font-size:1.8em;">💊</div>
+          <h3>Pharma</h3>
+          <p>Molekül&shy;simulationen für neue Wirkstoffe</p>
+        </div>
+        <div class="q-card" style="text-align:center;">
+          <div style="font-size:1.8em;">💰</div>
+          <h3>Finanzen</h3>
+          <p>Komplexe Risiko- und Portfolio&shy;modelle</p>
+        </div>
+        <div class="q-card" style="text-align:center;">
+          <div style="font-size:1.8em;">🔐</div>
+          <h3>Kryptografie</h3>
+          <p>Neue und bedrohte Verschlüsselung</p>
+        </div>
+      </div>
+      <div class="q-card" style="margin-top:0.5em; text-align:center;">
+        <p style="margin:0; font-size:0.78em;">Klassische Computer stoßen an physikalische Grenzen — Miniaturisierung und Wärmeentwicklung. Quantencomputer <strong>umgehen diese durch quantenmechanische Effekte</strong>.</p>
+      </div>
+    </section>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       3. WIE FUNKTIONIEREN SIE?
+  ════════════════════════════════════════════ -->
+  <section>
+    <section data-transition="slide">
+      <span class="slide-num">03 — Technik</span>
+      <h2>Wie funktionieren sie?</h2>
+      <div class="grid-2" style="align-items:start;">
+        <div>
+          <h3 style="margin-bottom:0.4em;">Qubit-Realisierungen</h3>
+          <div class="timeline">
+            <div class="timeline-item">
+              <p style="margin:0;"><strong>Supraleitende Schaltkreise</strong> — verwendet u.a. von Google &amp; IBM</p>
+            </div>
+            <div class="timeline-item">
+              <p style="margin:0;"><strong>Ionenfallen</strong> — sehr präzise, langsamer in der Operation</p>
+            </div>
+            <div class="timeline-item">
+              <p style="margin:0;"><strong>Photonen</strong> — raumtemperaturtauglich, schwer zu verschränken</p>
+            </div>
+            <div class="timeline-item">
+              <p style="margin:0;"><strong>Silizium-Quantendots</strong> — kompatibel mit CMOS-Fertigung</p>
+            </div>
+            <div class="timeline-item">
+              <p style="margin:0;"><strong>Topologische Qubits</strong> — fehlertolerant, noch experimentell</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3>Quantengatter</h3>
+          <div class="q-card">
+            <p><strong>Hadamard-Gatter (H)</strong><br>Versetzt ein Qubit in Superposition — erzeugt gleiche Wahrscheinlichkeit für 0 und 1.</p>
+          </div>
+          <div class="q-card" style="margin-top:0.5em;">
+            <p><strong>CNOT-Gatter</strong><br>Verschränkt zwei Qubits — dreht das Ziel-Qubit, wenn das Kontroll-Qubit |1⟩ ist.</p>
+          </div>
+          <div class="q-card" style="margin-top:0.5em; text-align:center;">
+            <span class="chip">⚛ Spin</span>
+            <span class="chip">⚡ Energielevel</span>
+            <span class="chip">💡 Photonenpolarisation</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       4. AKTUELLER STAND
+  ════════════════════════════════════════════ -->
+  <section>
+    <section data-transition="slide">
+      <span class="slide-num">04 — Status Quo</span>
+      <h2>Aktueller Stand</h2>
+      <div class="grid-2" style="align-items:start;">
+        <div>
+          <div class="q-card">
+            <h3>Systeme heute</h3>
+            <p>Existierende Maschinen verfügen über <strong>Dutzende bis Hunderte von Qubits</strong> — aber sind noch fehleranfällig.</p>
+            <div class="progress-bar"><div class="progress-fill" style="width:35%"></div></div>
+            <p style="font-size:0.7em; color:rgba(255,255,255,0.45); margin:0;">Reifegrad: ~35% zum praktischen Einsatz</p>
+          </div>
+          <div class="q-card" style="margin-top:0.6em;">
+            <h3>Bedingungen</h3>
+            <p>Betrieb nahe dem <strong>absoluten Nullpunkt</strong> (–273 °C) notwendig — aufwendige Kühlung und Isolation sind Pflicht.</p>
+          </div>
+        </div>
+        <div>
+          <div class="q-card" style="background: rgba(0,255,204,0.05); border-color: rgba(0,255,204,0.25);">
+            <h3 style="color:var(--q-cyan);">Ausblick</h3>
+            <p>Praktische, breit einsetzbare Quantencomputer werden <strong>in den nächsten Jahren</strong> erwartet — die Entwicklung schreitet rasant voran.</p>
+          </div>
+          <div style="margin-top:0.8em; text-align:center;">
+            <div style="display:inline-grid; grid-template-columns: 1fr 1fr; gap:0.5em;">
+              <div class="q-card" style="text-align:center; padding:0.6em;">
+                <div class="stat-big" style="font-size:2em;">~1000</div>
+                <p style="margin:0; font-size:0.7em;">IBM-Qubits (2023)</p>
+              </div>
+              <div class="q-card" style="text-align:center; padding:0.6em;">
+                <div class="stat-big" style="font-size:2em;">2030s</div>
+                <p style="margin:0; font-size:0.7em;">Ziel: Fehlerkorrigierte Systeme</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       5. CHANCEN & ANWENDUNGEN
+  ════════════════════════════════════════════ -->
+  <section>
+    <section data-transition="slide">
+      <span class="slide-num">05 — Chancen</span>
+      <h2>Chancen &amp; Anwendungen</h2>
+      <div class="grid-3">
+        <div class="q-card" style="text-align:center;">
+          <div style="font-size:1.6em; margin-bottom:0.3em;">🧬</div>
+          <h3>Chemie &amp; Medizin</h3>
+          <p>Schnellere Entwicklung neuer Medikamente &amp; Materialien durch Molekülsimulationen</p>
+        </div>
+        <div class="q-card" style="text-align:center;">
+          <div style="font-size:1.6em; margin-bottom:0.3em;">🚚</div>
+          <h3>Optimierung</h3>
+          <p>Logistik, Verkehrs&shy;planung, Energie&shy;verteilung — Millionen Variablen in Echtzeit</p>
+        </div>
+        <div class="q-card" style="text-align:center;">
+          <div style="font-size:1.6em; margin-bottom:0.3em;">🔑</div>
+          <h3>Kryptografie</h3>
+          <p>Post-Quanten-sichere Verfahren — aber auch Bedrohung bestehender Systeme</p>
+        </div>
+        <div class="q-card" style="text-align:center;">
+          <div style="font-size:1.6em; margin-bottom:0.3em;">🤖</div>
+          <h3>KI &amp; ML</h3>
+          <p>Schnellere Mustererkennung &amp; komplexe Modellierung durch Quantenbeschleunigung</p>
+        </div>
+        <div class="q-card" style="text-align:center;">
+          <div style="font-size:1.6em; margin-bottom:0.3em;">🌍</div>
+          <h3>Klimamodelle</h3>
+          <p>Präzise Klimasimulationen &amp; Wettervorhersagen auf quantenmechanischer Basis</p>
+        </div>
+        <div class="q-card" style="text-align:center; background:rgba(139,92,246,0.08); border-color:rgba(139,92,246,0.3);">
+          <div style="font-size:1.6em; margin-bottom:0.3em;">⚗️</div>
+          <h3>Quanten&shy;physik</h3>
+          <p>Präzise Simulation quantenmechanischer Systeme — unmöglich für klassische Rechner</p>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       6. RISIKEN
+  ════════════════════════════════════════════ -->
+  <section>
+    <section data-transition="slide">
+      <span class="slide-num">06 — Risiken</span>
+      <h2>Risiken &amp; Herausforderungen</h2>
+      <div class="grid-2" style="align-items:start;">
+        <div>
+          <div class="q-card danger">
+            <h3>🔓 Kryptografische Bedrohung</h3>
+            <p>Der <strong>Shor-Algorithmus</strong> kann RSA &amp; ECC brechen — und damit Online-Banking, E-Commerce, staatliche Kommunikation und digitale Identitäten gefährden.</p>
+          </div>
+          <div class="q-card danger" style="margin-top:0.5em;">
+            <h3>⏳ Harvest Now, Decrypt Later</h3>
+            <p>Angreifer sammeln <strong>heute</strong> verschlüsselte Daten — um sie <strong>morgen</strong> mit Quantencomputern zu entschlüsseln. Ein reales, akutes Risiko.</p>
+          </div>
+        </div>
+        <div>
+          <div class="q-card danger">
+            <h3>⚙️ Technische Grenzen</h3>
+            <ul>
+              <li>Hohe Fehleranfälligkeit <strong>(Dekohärenz)</strong></li>
+              <li>Extrem aufwendige Kühlung &amp; Isolation</li>
+              <li>Hohe Kosten &amp; komplexe Infrastruktur</li>
+            </ul>
+          </div>
+          <div class="q-card danger" style="margin-top:0.5em;">
+            <h3>🏦 Gesellschaftliche Risiken</h3>
+            <ul>
+              <li>Machtkonzentration bei Tech-Giganten</li>
+              <li>Abhängigkeit von Quanten-Cloud-Diensten</li>
+              <li>Disruption: Cybersecurity, Pharma, Logistik</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       7. FAZIT
+  ════════════════════════════════════════════ -->
+  <section data-transition="zoom">
+    <span class="slide-num">07 — Fazit</span>
+    <h2>Fazit</h2>
+    <div class="fazit-box">
+      Quantencomputer sind <strong>keine Ersatztechnologie</strong> für klassische Computer —<br>
+      sondern eine <strong>ergänzende Revolution</strong>.<br><br>
+      Sie werden bestimmte Probleme radikal schneller lösen, bringen aber<br>
+      <strong>erhebliche Risiken</strong> für Sicherheit und Infrastruktur mit sich.
+    </div>
+    <div class="grid-3" style="margin-top:0.8em;">
+      <div class="q-card" style="text-align:center;">
+        <div style="font-size:1.4em;">🛡️</div>
+        <p style="margin:0.2em 0 0; font-size:0.75em;"><strong>Quantum Resilience</strong><br>Infrastruktur absichern</p>
+      </div>
+      <div class="q-card" style="text-align:center;">
+        <div style="font-size:1.4em;">🔐</div>
+        <p style="margin:0.2em 0 0; font-size:0.75em;"><strong>Post-Quanten-Krypto</strong><br>Jetzt entwickeln &amp; einführen</p>
+      </div>
+      <div class="q-card" style="text-align:center;">
+        <div style="font-size:1.4em;">🌐</div>
+        <p style="margin:0.2em 0 0; font-size:0.75em;"><strong>Int. Regulierung</strong><br>Machtbalance sichern</p>
+      </div>
+    </div>
+    <p style="text-align:center; font-family:'Space Mono',monospace; font-size:0.6em; color:rgba(0,212,255,0.4); margin-top:1.2em; letter-spacing:0.15em;">DIE NÄCHSTEN JAHRE WERDEN ENTSCHEIDEND SEIN</p>
+  </section>
+
+</div><!-- /slides -->
+</div><!-- /reveal -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.js"></script>
+<script>
+  Reveal.initialize({
+    hash: true,
+    slideNumber: true,
+    transition: 'slide',
+    transitionSpeed: 'default',
+    backgroundTransition: 'fade',
+    controls: true,
+    progress: true,
+    center: true,
+    width: 1280,
+    height: 720,
+    margin: 0.06,
+    plugins: []
+  });
+</script>
+</body>
 </html>
